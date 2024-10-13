@@ -15,6 +15,7 @@ install:
 
 # Run the Flask application and the frontend
 run:
+	cd frontend && npm run dev	
 	@$(VENV_DIR)/bin/python backend/app.py & \
 	PID=$$!; \
 	sleep 5; \
@@ -26,6 +27,5 @@ run:
 		echo "Flask app is not yet ready..."; \
 		sleep 1; \
 	done || { echo "Flask app failed to start"; kill $$PID; exit 1; } && \
-	cd frontend && npm run dev
 
 
