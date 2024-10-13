@@ -1,34 +1,39 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+name: React App Workflow
 
-name: Python application
-
+# Trigger workflow on push or pull request to the main branch
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up Node.js (required for React apps)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
       with:
-        python-version: "3.10"
-    - name: Install dependencies
+        node-version: '16' # Use the version of Node.js your project requires
+
+    # Install dependencies using make install
+    - name: Install Dependencies
+      run: make install
+
+    # Run the server with make run and sleep to ensure the server has time to start
+    - name: Start Server
       run: |
-        make install
-    - name: Lint with flake8
-      run: |
-        make run
-    - name: Test with pytest
-      run: |
-        pytest
+        make run &
+        sleep 10
+
+    # You can add additional steps for testing here
+    # For example, if you have tests to run:
+    # - name: Run Tests
+    #   run: npm test # This can vary based on your test setup
+
