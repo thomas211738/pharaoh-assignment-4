@@ -3,6 +3,7 @@ VENV_DIR = backend/venv
 
 # Install dependencies
 install:
+	cd frontend && npm install
 	# Create virtual environment if it doesn't exist
 	@if [ ! -d $(VENV_DIR) ]; then \
 		python3 -m venv $(VENV_DIR); \
