@@ -15,7 +15,12 @@ install:
 
 # Run the Flask application and the frontend
 run:
-	# Start the Flask app in the background
 	@$(VENV_DIR)/bin/python backend/app.py &
-	cd frontend && npm run dev
-	@sleep 10
+		@for i in {1..10}; do \
+			if curl -s http://127.0.0.1:5000/; then \
+				echo "Flask app is running"; \
+				break; \
+			fi; \
+			sleep 1; \
+		done
+		cd frontend && npm run dev
