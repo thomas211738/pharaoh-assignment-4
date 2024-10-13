@@ -17,6 +17,13 @@ install:
 run:
 	@$(VENV_DIR)/bin/python backend/app.py &
 	@sleep 5  # Wait for a bit for the Flask app to initialize
-	@curl -s http://127.0.0.1:5000/ || { echo "Flask app failed to start"; exit 1; }
+	@for i in {1..10}; do \
+		if curl -s http://0.0.0.0:5000/; then \
+			echo "Flask app is running"; \
+			break; \
+		fi; \
+		echo "Flask app is not yet ready..."; \
+		sleep 1; \
+	done || { echo "Flask app failed to start"; exit 1; }
 	cd frontend && npm run dev
 
