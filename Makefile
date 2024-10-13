@@ -17,3 +17,4 @@ run:
 	# Start the Flask app in the background
 	@$(VENV_DIR)/bin/python backend/app.py &
 	cd frontend && npm run dev
+	@sleep 10
