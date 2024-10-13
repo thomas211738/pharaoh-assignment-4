@@ -38,6 +38,6 @@ run:
 		echo "Flask app is not yet ready..."; \
 		sleep 1; \
 	done || { echo "Flask app failed to start"; kill $$FRONTEND_PID; exit 1; } && \
-	@echo "Starting the Flask application..."
+	echo "Starting the Flask application..."
 	@$(VENV_DIR)/bin/python backend/app.py
 
