@@ -3,7 +3,7 @@ VENV_DIR = backend/venv
 
 # Install dependencies
 install:
-	cd frontend && npm install
+	cd frontend && npm install  # This line is fine as is
 	# Create virtual environment if it doesn't exist
 	@if [ ! -d $(VENV_DIR) ]; then \
 		python3 -m venv $(VENV_DIR); \
@@ -12,6 +12,7 @@ install:
 	@$(VENV_DIR)/bin/pip install --upgrade pip setuptools wheel
 	# Install requirements
 	@$(VENV_DIR)/bin/pip install -r backend/requirements.txt
+
 
 # Run the Flask application and the frontend
 run:
@@ -25,4 +26,3 @@ run:
         sleep 1; \
     done || { echo "Flask app failed to start"; exit 1; }
     cd frontend && npm run dev
-
